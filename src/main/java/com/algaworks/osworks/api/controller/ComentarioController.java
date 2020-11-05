@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,9 +37,10 @@ public class ComentarioController {
 	@Autowired
 	private ModelMapper modelMapper;
 	
+	@GetMapping
 	public List<ComentarioModel> listar(@PathVariable Long ordemServicoId) {
 		OrdemServico ordemServico = ordemServicoRepository.findById(ordemServicoId)
-		.orElseThrow(() -> new EntidadeNaoEncontradaException("Ordem de servico não encontrada"));
+				.orElseThrow(() -> new EntidadeNaoEncontradaException("Ordem de servico não encontrada"));
 		
 		return toCollectionModel(ordemServico.getComentarios());
 	}
